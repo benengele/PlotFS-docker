@@ -1,2 +1,3 @@
 #!/bin/sh
-mount.plotfs -f /plots
+mkdir -p /shared/plots
+mount.plotfs -f -o allow_other /shared/plots
