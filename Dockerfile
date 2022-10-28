@@ -12,7 +12,7 @@ FROM alpine:3.16
 RUN apk --no-cache add libstdc++ fuse3
 COPY --from=build /usr/local/bin/plotfs /usr/local/bin/mount.plotfs /usr/local/bin/
 COPY entrypoint.sh /
-RUN mkdir /var/local/plotfs
+RUN chmod +x entrypoint.sh && mkdir /var/local/plotfs
 
 VOLUME "/var/local/plotfs"
 
