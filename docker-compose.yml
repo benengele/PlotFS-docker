@@ -1,0 +1,37 @@
+version: "3.9"
+services:
+  chia:
+    image: ghcr.io/chia-network/chia:1.4.0
+    restart: unless-stopped
+    depends_on:
+      - "plotfs"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - ../chia/.chia/mainnet/config/ssl/ca:/ca
+      - ./config:/root/.chia/mainnet/config
+      - ./shared/plots:/plots
+    environment:
+      - service=harvester
+      - farmer_address=host.docker.internal
+      - farmer_port=8447
+      - keys=copy
+      - ca=/ca
+      - log_level=INFO
+  plotfs:
+    build: ./PlotFS-docker/
+    privileged: true
+    restart: unless-stopped
+    volumes:
+      - ./plotfs:/var/local/plotfs/
+      - /dev:/dev
+      - type: bind
+        source: /plots
+        target: /incoming
+        bind:
+            propagation: slave
+      - type: bind
+        source: ./shared
+        target: /shared
+        bind:
+            propagation: shared
