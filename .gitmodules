@@ -1,3 +1,4 @@
 [submodule "PlotFS"]
 	path = PlotFS
 	url = https://github.com/benengele/PlotFS.git
+        update = rebase
