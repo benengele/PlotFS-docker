@@ -5,7 +5,7 @@ RUN \
    apk --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/v3.16/community add fuse3-dev flatbuffers-dev
 
 WORKDIR /build
-RUN git clone https://github.com/szatmary/PlotFS.git
+COPY PlotFS PlotFS
 RUN cd PlotFS && cmake . && make && make install
 
 FROM alpine:3.16
